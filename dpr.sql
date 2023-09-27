@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2023 at 05:54 PM
+-- Generation Time: Sep 27, 2023 at 06:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -112,7 +112,7 @@ CREATE TABLE `tb_kegiatan` (
   `id_kegiatan` int(11) NOT NULL,
   `nama_kegiatan` text NOT NULL,
   `tahun_anggaran` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `nilai_anggaran` int(30) NOT NULL,
+  `nilai_anggaran` bigint(20) NOT NULL,
   `kode_rekening` varchar(50) NOT NULL,
   `nama_pptk` varchar(50) NOT NULL,
   `nip_pptk` varchar(30) NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE `tb_kegiatan` (
 --
 
 INSERT INTO `tb_kegiatan` (`id_kegiatan`, `nama_kegiatan`, `tahun_anggaran`, `nilai_anggaran`, `kode_rekening`, `nama_pptk`, `nip_pptk`, `nama_ppk`, `nip_ppk`) VALUES
-(2, 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah', '2023-09-27 15:49:00', 220000000, '5.3.2.12.12', 'IRMA RAHMAWATI, S.Sos, MM', '19810204 201001 2 002', 'Afwa', '19700922 199803 1 004');
+(2, 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah', '2023-09-27 16:14:19', 220000000, '5.3.2.12.12', 'IRMA RAHMAWATI, S.Sos, MM', '19810204 201001 2 002', 'Afwa', '19700922 199803 1 004');
 
 -- --------------------------------------------------------
 
