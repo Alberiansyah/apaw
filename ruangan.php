@@ -185,3 +185,133 @@ $no = 1;
 </div>
 
 <?php require __DIR__ . '/wp-layouts/footer.php'; ?>
+<script>
+    // Ruangan
+
+    $(document).on("click", "#tambahRuangan", function() {
+        let form = $('#postRuangan').serialize();
+        $.ajax({
+            url: "functions/tambah-data-ruangan",
+            data: form,
+            type: 'POST',
+            beforeSend: function() {
+                $('#nama_ruangan').val('');
+                $('#lantai').val('').trigger('change');;
+                $('#zona').val('').trigger('change');;
+            },
+            success: function(response) {
+                if (response.status) {
+                    $(".tambahRuangan").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.success(response.message);
+                } else {
+                    $(".tambahRuangan").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".tambahRuangan").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnEditRuangan", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-ruangan?idRuangan=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    let data = response.data;
+                    for (let i = 0; i < data.length; i++) {
+                        $("#edit_nama_ruangan").val(data[i].nama_ruangan)
+                        $("#edit_lantai").val(data[i].lantai).trigger('change');
+                        $("#edit_zona").val(data[i].zona).trigger('change');
+                        $(".editRuangan").modal("show");
+                    }
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#editRuangan", function(e) {
+        let form = $('#postEditRuangan').serialize();
+        $.ajax({
+            url: "functions/edit-ruangan",
+            data: form,
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".editRuangan").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.info(response.message);
+                } else {
+                    $(".editRuangan").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".editRuangan").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnHapusRuangan", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-ruangan?idRuangan=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                let data = response.data;
+                for (let i = 0; i < data.length; i++) {
+                    $(".hapusRuangan").modal("show");
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#hapusRuangan", function(e) {
+        $.ajax({
+            url: "functions/delete-ruangan",
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".hapusRuangan").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.error(response.message);
+                } else {
+                    $(".hapusRuangan").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".hapusRuangan").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    // End Ruangan
+</script>
+
+</body>
+
+</html>

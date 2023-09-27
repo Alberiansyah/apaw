@@ -57,10 +57,10 @@ $no = 1;
                                                     <td><?= $no++ ?></td>
                                                     <td><?= $data->nama_bagian ?></td>
                                                     <td><?= $data->nama_teknisi ?></td>
-                                                    <td><?= $data->no_telp ?></td>
-                                                    <td><?= $data->no_nik ?></td>
-                                                    <td><?= $data->alamat ?></td>
-                                                    <td><?= $data->email ?></td>
+                                                    <td><?= empty($data->no_telp) ? '-' : $data->no_telp ?></td>
+                                                    <td><?= empty($data->no_nik) ? '-' : $data->no_nik ?></td>
+                                                    <td><?= empty($data->alamat) ? '-' : $data->alamat ?></td>
+                                                    <td><?= empty($data->email) ? '-' : $data->email ?></td>
                                                     <td>
                                                         <button type="button" class="btn btn-info" id="btnEditTeknisi" data-id="<?= $data->id_teknisi ?>">Edit</button></a>
                                                         <button type="button" class="btn btn-danger" id="btnHapusTeknisi" data-id="<?= $data->id_teknisi ?>">Hapus</button>
@@ -208,3 +208,140 @@ $no = 1;
     </div>
 </div>
 <?php require __DIR__ . '/wp-layouts/footer.php'; ?>
+
+<script>
+    // Teknisi
+
+    $(document).on("click", "#tambahTeknisi", function() {
+        let form = $('#postTeknisi').serialize();
+        $.ajax({
+            url: "functions/tambah-data-teknisi",
+            data: form,
+            type: 'POST',
+            beforeSend: function() {
+                $('#nama_teknisi').val('');
+                $('#email').val('');
+                $('#no_telp').val('');
+                $('#bagian_id').val('').trigger('change');
+                $('#no_nik').val('');
+                $('#alamat').val('');
+            },
+            success: function(response) {
+                if (response.status) {
+                    $(".tambahTeknisi").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.success(response.message);
+                } else {
+                    $(".tambahTeknisi").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".tambahTeknisi").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnEditTeknisi", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-teknisi?idTeknis=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    let data = response.data;
+                    for (let i = 0; i < data.length; i++) {
+                        $("#edit_nama_teknisi").val(data[i].nama_teknisi)
+                        $("#edit_email").val(data[i].email)
+                        $("#edit_no_telp").val(data[i].no_telp)
+                        $("#edit_bagian_id").val(data[i].bagian_id).trigger('change');
+                        $("#edit_no_nik").val(data[i].no_nik)
+                        $("#edit_alamat").val(data[i].alamat)
+                        $(".editTeknisi").modal("show");
+                    }
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#editTeknisi", function() {
+        let form = $('#postEditTeknisi').serialize();
+        $.ajax({
+            url: "functions/edit-teknisi",
+            data: form,
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".editTeknisi").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.info(response.message);
+                } else {
+                    $(".editTeknisi").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".editTeknisi").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnHapusTeknisi", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-teknisi?idTeknis=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                let data = response.data;
+                for (let i = 0; i < data.length; i++) {
+                    $(".hapusTeknisi").modal("show");
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#hapusTeknisi", function(e) {
+        $.ajax({
+            url: "functions/delete-teknisi",
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".hapusTeknisi").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.error(response.message);
+                } else {
+                    $(".hapusTeknisi").modal("hide");
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                $(".hapusTeknisi").modal("hide");
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    // End Teknisi
+</script>
+
+</body>
+
+</html>

@@ -44,8 +44,5 @@
 <script src="<?= $hostToRoot ?>wp-content/template/vendor/fullcalendar/js/fullcalendar.min.js"></script>
 <script src="<?= $hostToRoot ?>wp-content/template/js/plugins-init/fullcalendar-init.js"></script>
 <script src="<?= $hostToRoot ?>wp-content/template/js/plugins-init/fullcalendar-init.js"></script>
+<script src="<?= $hostToRoot ?>wp-content/template/vendor/datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 <script src="<?= $hostToRoot ?>wp-content/assets/js/js.js?v=<?= time() ?>"></script>
-
-</body>
-
-</html>

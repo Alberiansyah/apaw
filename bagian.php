@@ -135,3 +135,125 @@ $no = 1;
 </div>
 
 <?php require __DIR__ . '/wp-layouts/footer.php'; ?>
+
+<script>
+    // Bagian
+
+    $(document).on("click", "#tambahBagian", function() {
+        let form = $('#postBagian').serialize();
+        $.ajax({
+            url: "functions/tambah-data-bagian",
+            data: form,
+            type: 'POST',
+            beforeSend: function() {
+                $('#bagian').val('');
+            },
+            success: function(response) {
+                if (response.status) {
+                    $(".tambahBagian").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+
+    $(document).on("click", "#edit", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-bagian?idBagian=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    let data = response.data;
+                    for (let i = 0; i < data.length; i++) {
+                        $("#editNamaBagian").val(data[i].nama_bagian)
+                        $(".editBagian").modal("show");
+                    }
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#editBagian", function(e) {
+        let form = $('#postEditBagian').serialize();
+        $.ajax({
+            url: "functions/edit-bagian",
+            data: form,
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".editBagian").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });;
+                    toastr.info(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#hapus", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-bagian?idBagian=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                let data = response.data;
+                for (let i = 0; i < data.length; i++) {
+                    $(".hapusBagian").modal("show");
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#hapusBagian", function(e) {
+        $.ajax({
+            url: "functions/delete-bagian",
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".hapusBagian").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.error(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    // End Bagian
+</script>
+
+</body>
+
+</html>

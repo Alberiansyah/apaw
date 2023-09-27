@@ -216,3 +216,132 @@ $no = 1;
 </div>
 
 <?php require __DIR__ . '/wp-layouts/footer.php'; ?>
+
+<script>
+    // Barang
+
+    $(document).on("click", "#tambahBarang", function() {
+        let form = $('#postBarang').serialize();
+        $.ajax({
+            url: "functions/tambah-data-barang",
+            data: form,
+            type: 'POST',
+            beforeSend: function() {
+                $('#nama_barang').val('');
+                $("#satuan").val('').trigger('change');
+                $("#bagian_id").val('').trigger('change');
+                $('#type').val('');
+                $('#merk').val('');
+            },
+            success: function(response) {
+                if (response.status) {
+                    $(".tambahBarang").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnEditBarang", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-barang?idBarang=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    let data = response.data;
+                    for (let i = 0; i < data.length; i++) {
+                        $("#edit_nama_barang").val(data[i].nama_barang)
+                        $("#edit_satuan").val(data[i].satuan).trigger('change');
+                        $("#edit_bagian_id").val(data[i].bagian_id).trigger('change');
+                        $("#edit_type").val(data[i].type)
+                        $("#edit_merk").val(data[i].merk)
+                        $(".editBarang").modal("show");
+                    }
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#editBarang", function(e) {
+        let form = $('#postEditBarang').serialize();
+        $.ajax({
+            url: "functions/edit-barang",
+            data: form,
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".editBarang").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.info(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#btnhapusBarang", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "functions/get-id-barang?idBarang=" + id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(response) {
+                let data = response.data;
+                for (let i = 0; i < data.length; i++) {
+                    $(".hapusBarang").modal("show");
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    $(document).on("click", "#hapusBarang", function(e) {
+        $.ajax({
+            url: "functions/delete-barang",
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    $(".hapusBarang").modal("hide");
+                    $("#reset").load(location.href + " #reset>*", function() {
+                        $('#table').DataTable();
+                    });
+                    toastr.error(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
+    });
+
+    // End Barang
+</script>
+
+</body>
+
+</html>

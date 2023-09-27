@@ -15,6 +15,7 @@
     <link href="<?= $hostToRoot ?>wp-content/template/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="<?= $hostToRoot ?>wp-content/template/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="<?= $hostToRoot ?>wp-content/template/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
+    <link href="<?= $hostToRoot ?>wp-content/template/vendor/datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <link href="<?= $hostToRoot ?>wp-content/template/css/style.css?v=<?= time() ?>" rel="stylesheet">
 
 </head>

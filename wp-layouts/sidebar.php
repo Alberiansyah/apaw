@@ -13,13 +13,15 @@
                     <li><a href="bagian">Data Bagian</a></li>
                     <li><a href="barang">Data Barang</a></li>
                     <li><a href="kegiatan">Data Kegiatan</a></li>
-                    <li><a href="pengajuan">Data Pengajuan</a></li>
                     <li><a href="ruangan">Data Ruangan</a></li>
                     <li><a href="teknisi">Data Teknisi</a></li>
                 </ul>
             </li>
+            <li class="nav-label first">Transaksi</li>
+            <li><a href="pengajuan"><i class="ti-layout-cta-left"></i><span class="nav-text">Pengajuan</span></a>
+            </li>
             <li class="nav-label first">Sign Out</li>
-            <li><a href="logout"><i class="icon icon-sign"></i><span class="nav-text">Logout</span></a>
+            <li><a href="logout"><i class="ti-power-off"></i><span class="nav-text">Logout</span></a>
             </li>
         </ul>
     </div>

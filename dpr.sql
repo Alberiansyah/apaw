@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2023 at 08:54 PM
+-- Generation Time: Sep 27, 2023 at 05:54 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,7 +65,42 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id_barang`, `bagian_id`, `nama_barang`, `satuan`, `merk`, `type`) VALUES
-(4, 1, 'Amplas Kasar', 'Meter', 'Setara', 'Kasar');
+(1, 0, '', '', '', ''),
+(2, 6, 'Cat Besi', 'Kaleng', 'Avian', 'Putih'),
+(3, 6, 'Foot Valve', 'Buah', 'Setara', ''),
+(4, 1, 'Freon R11', 'Kaleng', '', ''),
+(5, 1, 'Freon R410a', 'Kaleng', '', ''),
+(6, 3, 'J1k Antena TV', 'Buah', 'Setara', 'Cowo'),
+(7, 6, 'Jet Washer 1/2\"', 'Buah', '', ''),
+(8, 3, 'Kabel Antena (Coaxial)', 'Meter', 'RG6', 'Coaxial'),
+(9, 3, 'Kabel NYM 4x2,5 mm2', 'Meter', 'Suppreme', 'Nym 4x2,5'),
+(10, 6, 'Kawat Tali Beton', 'Meter', 'Setara', 'Bendrat'),
+(11, 6, 'Keni PVC 1/2\"', 'Batang', '', ''),
+(12, 6, 'Keni PVC 2,5 Inc', 'Buah', 'Setara', ''),
+(13, 6, 'Keni PVC 3/4\"', 'Buah', '', ''),
+(14, 6, 'Keran Dinding 1/2\"', 'Buah', 'Onda', ''),
+(15, 6, 'Keran Wastafel 1/2\"', 'Buah', '', ''),
+(16, 6, 'Kunci Ring Pas', 'Buah', 'Tekiro', 'No.10'),
+(17, 6, 'Kuwas Cat 1,5', 'Buah', 'Setara', '11/2'),
+(18, 3, 'Lampu SL 23 Watt', 'Buah', 'Philips', '23 Watt'),
+(19, 3, 'Lampu TL 20', 'Buah', 'Philips', 'TL 20'),
+(20, 6, 'Lem', 'Kaleng', 'Asahi', ''),
+(21, 6, 'Pipa PVC', 'Batang', 'Wavin', '3/4\"'),
+(22, 6, 'Pipa PVC 1/2\"', 'Batang', '', ''),
+(23, 6, 'Pompa 125 Watt', 'Unit', 'Panasonic', 'GA 130'),
+(24, 6, 'Pompa Air 125Watt', 'Unit', '', ''),
+(25, 1, 'Pompa Drain 1', 'Unit', '', ''),
+(26, 6, 'Pompa Seawage 1500Watt', 'Unit', 'Ebara', '3 Fasa'),
+(27, 6, 'Roda Gerobak', 'Buah', 'Setara', '15cm'),
+(28, 6, 'Seal Tape', 'Buah', '', ''),
+(29, 6, 'Skrup Gypsum', 'Dus', 'No Brand', ''),
+(30, 6, 'Sock Drat Luar PVC', 'Buah', 'Setara', '3/4'),
+(31, 6, 'Socket PVC', 'Buah', 'Setara', '3/4\"'),
+(32, 3, 'Splitter Antena TV 2 Way', 'Buah', 'Rapid', '2 Way'),
+(33, 6, 'Tambang Plastik D2cm', 'Meter', 'Setara', 'Plastik 2Cm'),
+(34, 6, 'Tinner Cat', 'Kaleng', 'Setara', '-'),
+(35, 6, 'Union Sock', 'Buah', 'Setara', ''),
+(36, 6, 'Water Mur 2,5 Inc', 'Buah', 'Setara', '');
 
 -- --------------------------------------------------------
 
@@ -75,7 +110,8 @@ INSERT INTO `tb_barang` (`id_barang`, `bagian_id`, `nama_barang`, `satuan`, `mer
 
 CREATE TABLE `tb_kegiatan` (
   `id_kegiatan` int(11) NOT NULL,
-  `tahun_anggaran` date NOT NULL,
+  `nama_kegiatan` text NOT NULL,
+  `tahun_anggaran` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `nilai_anggaran` int(30) NOT NULL,
   `kode_rekening` varchar(50) NOT NULL,
   `nama_pptk` varchar(50) NOT NULL,
@@ -83,6 +119,13 @@ CREATE TABLE `tb_kegiatan` (
   `nama_ppk` varchar(50) NOT NULL,
   `nip_ppk` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_kegiatan`
+--
+
+INSERT INTO `tb_kegiatan` (`id_kegiatan`, `nama_kegiatan`, `tahun_anggaran`, `nilai_anggaran`, `kode_rekening`, `nama_pptk`, `nip_pptk`, `nama_ppk`, `nip_ppk`) VALUES
+(2, 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah', '2023-09-27 15:49:00', 220000000, '5.3.2.12.12', 'IRMA RAHMAWATI, S.Sos, MM', '19810204 201001 2 002', 'Afwa', '19700922 199803 1 004');
 
 -- --------------------------------------------------------
 
@@ -135,7 +178,9 @@ CREATE TABLE `tb_role` (
 --
 
 INSERT INTO `tb_role` (`id_role`, `nama_role`) VALUES
-(1, 'ADMINISTRATOR');
+(1, 'ADMINISTRATOR'),
+(2, 'PPK'),
+(3, 'PPTK');
 
 -- --------------------------------------------------------
 
@@ -189,7 +234,7 @@ CREATE TABLE `tb_teknisi` (
   `id_teknisi` int(11) NOT NULL,
   `bagian_id` int(1) NOT NULL,
   `nama_teknisi` varchar(50) NOT NULL,
-  `no_telp` varchar(15) NOT NULL,
+  `no_telp` varchar(15) DEFAULT NULL,
   `no_nik` varchar(30) NOT NULL,
   `alamat` text NOT NULL,
   `email` varchar(50) NOT NULL
@@ -200,7 +245,41 @@ CREATE TABLE `tb_teknisi` (
 --
 
 INSERT INTO `tb_teknisi` (`id_teknisi`, `bagian_id`, `nama_teknisi`, `no_telp`, `no_nik`, `alamat`, `email`) VALUES
-(1, 1, 'ANTON HERMAWAN', '0878218436271', '3217044918948781', 'Jl. Test', 'test@gmail.com');
+(1, 1, 'ANTON HERMAWAN', '', '', 'Jl. Test', ''),
+(2, 2, 'Ari', '', '', '', ''),
+(3, 6, 'ASEP', '', '', '', ''),
+(4, 7, 'AYI KURNIA', '', '', '', ''),
+(5, 3, 'AYI RUSMANA', '', '', '', ''),
+(6, 3, 'BILLY ALFIAN', '', '', '', ''),
+(7, 6, 'DADANG AVO', '', '', '', ''),
+(8, 4, 'DIDIK JAMALUDIN', '', '', '', ''),
+(9, 3, 'ERI RUSKANDAR', '', '', '', ''),
+(10, 1, 'FAJAR DARMAWAN', '', '', '', ''),
+(11, 4, 'FITRA ERVANSYAH', '', '', '', ''),
+(12, 4, 'HERRY SUSANTO', '', '', '', ''),
+(13, 7, 'INDRA KUSHENDAR PRATAMA', '', '', '', ''),
+(14, 4, 'KHELFIN KRISMANTIA', '', '', '', ''),
+(15, 1, 'M. HADI', '', '', '', ''),
+(16, 4, 'MAHESA SETIA MEGA PUTRA', '', '', '', ''),
+(17, 4, 'MUHAMMAD ADLI BAIHAQI', '', '', '', ''),
+(18, 1, 'ANTON HERMAWAN', '', '', '', ''),
+(19, 2, 'Ari', '', '', '', ''),
+(20, 6, 'ASEP', '', '', '', ''),
+(21, 7, 'AYI KURNIA', '', '', '', ''),
+(22, 3, 'AYI RUSMANA', '', '', '', ''),
+(23, 3, 'BILLY ALFIAN', '', '', '', ''),
+(24, 6, 'DADANG AVO', '', '', '', ''),
+(25, 4, 'DIDIK JAMALUDIN', '', '', '', ''),
+(26, 3, 'ERI RUSKANDAR', '', '', '', ''),
+(27, 1, 'FAJAR DARMAWAN', '', '', '', ''),
+(28, 4, 'FITRA ERVANSYAH', '', '', '', ''),
+(29, 4, 'HERRY SUSANTO', '', '', '', ''),
+(30, 7, 'INDRA KUSHENDAR PRATAMA', '', '', '', ''),
+(31, 4, 'KHELFIN KRISMANTIA', '', '', '', ''),
+(32, 1, 'M. HADI', '', '', '', ''),
+(33, 4, 'MAHESA SETIA MEGA PUTRA', '', '', '', ''),
+(34, 4, 'MUHAMMAD ADLI BAIHAQI', '', '', '', ''),
+(35, 4, 'SIGRIT ADITYA SALAM', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -221,7 +300,9 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `role_id`, `username`, `password`, `nama_lengkap`) VALUES
-(1, 1, 'Alberiansyah', '$2y$10$hAs3dG4qKe006A9ZmPGR/.RMDFEV.lzmfjOrBMfr9Ii9RjGU5MrBO', 'Alberiansyah');
+(1, 1, 'Alberiansyah', '$2y$10$hAs3dG4qKe006A9ZmPGR/.RMDFEV.lzmfjOrBMfr9Ii9RjGU5MrBO', 'Alberiansyah'),
+(2, 2, 'Afwa', '$2y$10$NLYcwIiEsBfKtp02AY.kK.3yzcEU7en4RjNb25BsmLD9E5S6u5oSS', 'Afwa'),
+(3, 3, 'Irma', '$2y$10$Wo.1gwcsSbLhE2FIDEI92.ntAzEcwYAzSm9/E5mzdcZ9rV7UKQRry', 'IRMA RAHMAWATI, S.Sos, MM');
 
 --
 -- Indexes for dumped tables
@@ -289,19 +370,19 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_bagian`
 --
 ALTER TABLE `tb_bagian`
-  MODIFY `id_bagian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_bagian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan`
@@ -319,7 +400,7 @@ ALTER TABLE `tb_pengajuan_detail`
 -- AUTO_INCREMENT for table `tb_role`
 --
 ALTER TABLE `tb_role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_ruangan`
@@ -331,13 +412,13 @@ ALTER TABLE `tb_ruangan`
 -- AUTO_INCREMENT for table `tb_teknisi`
 --
 ALTER TABLE `tb_teknisi`
-  MODIFY `id_teknisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_teknisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
