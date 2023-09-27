@@ -8,17 +8,20 @@
             <li><a href="home"><i class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
             </li>
             <li class="nav-label first">Data Master</li>
-            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-layout-25"></i><span class="nav-text">Data</span></a>
+            <li><a class="" href="javascript:void()" aria-expanded="false"><i class="icon icon-layout-25"></i><span class="nav-text">Data</span></a>
                 <ul aria-expanded="false">
                     <li><a href="bagian">Data Bagian</a></li>
                     <li><a href="barang">Data Barang</a></li>
-                    <li><a href="kegiatan">Data Kegiatan</a></li>
                     <li><a href="ruangan">Data Ruangan</a></li>
                     <li><a href="teknisi">Data Teknisi</a></li>
                 </ul>
             </li>
             <li class="nav-label first">Transaksi</li>
-            <li><a href="pengajuan"><i class="ti-layout-cta-left"></i><span class="nav-text">Pengajuan</span></a>
+            <li><a href="has-arrow"><i class="ti-layout-cta-left"></i><span class="nav-text">Transaksi</span></a>
+                <ul>
+                    <li><a href="kegiatan">Kegiatan</a></li>
+                    <li><a href="pengajuan">Pengajuan</a></li>
+                </ul>
             </li>
             <li class="nav-label first">Sign Out</li>
             <li><a href="logout"><i class="ti-power-off"></i><span class="nav-text">Logout</span></a>
