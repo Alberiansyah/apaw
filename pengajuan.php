@@ -4,8 +4,6 @@ require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
 $dataKegiatan = tampilData("SELECT tb_kegiatan.*, tb_pengajuan.*, tb_teknisi.*, tb_bagian.* FROM tb_kegiatan LEFT JOIN tb_pengajuan ON tb_pengajuan.kegiatan_id = tb_kegiatan.id_kegiatan LEFT JOIN tb_teknisi ON tb_teknisi.id_teknisi = tb_pengajuan.teknisi_id LEFT JOIN tb_bagian ON tb_bagian.id_bagian = tb_pengajuan.bagian_id");
-// var_dump(print_r($dataKegiatan));
-// exit;
 $dataUser = tampilData("SELECT * FROM tb_user");
 $dataRuangan = tampilData("SELECT * FROM tb_ruangan");
 $dataBarang = tampilData("SELECT * FROM tb_barang");

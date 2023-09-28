@@ -3,6 +3,21 @@ $isAjaxRequest = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVE
 if ($isAjaxRequest) {
 
     require __DIR__ . '/../connections/connections.php';
+
+    $arrayCek = ["kegiatan_id", "nama_pengaju", "tanggal", "bagian_id", "teknisi_id", "nip_pengaju", "ruangan_id", "barang_id", "jumlah", "keterangan"];
+    foreach ($arrayCek as $field) {
+        if (!isset($_POST[$field]) || $_POST[$field] === '') {
+            $response = [
+                'status' => false,
+                'message' => "Semua Form Wajib diisi!"
+            ];
+            $jsonData = json_encode($response);
+            header('Content-Type: application/json');
+            echo $jsonData;
+            exit();
+        }
+    }
+
     function editTeknisi($request)
     {
         global $pdo, $edit_nama_teknisi, $edit_email, $edit_no_telp, $edit_bagian_id, $edit_no_nik, $edit_alamat, $id;

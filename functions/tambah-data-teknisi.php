@@ -7,7 +7,7 @@ if ($isAjaxRequest) {
 
     $arrayCek = ["bagian_id", "nama_teknisi", "no_telp", "no_nik", "alamat", "email"];
     foreach ($arrayCek as $field) {
-        if (empty($_POST[$field])) {
+        if (!isset($_POST[$field]) || $_POST[$field] === '') {
             $response = [
                 'status' => false,
                 'message' => "Semua Form Wajib diisi!"
@@ -15,7 +15,6 @@ if ($isAjaxRequest) {
             $jsonData = json_encode($response);
             header('Content-Type: application/json');
             echo $jsonData;
-
             exit();
         }
     }

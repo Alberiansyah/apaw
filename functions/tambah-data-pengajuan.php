@@ -5,18 +5,34 @@ if ($isAjaxRequest) {
 
     require __DIR__ . '/../connections/connections.php';
 
-    $arrayCek = ["kegiatan_id", "nama_pengaju", "tanggal", "bagian_id", "teknisi_id", "nip_pengaju", "pengajuan_id", "ruangan_id", "barang_id", "jumlah", "keterangan"];
+    $arrayCek = ["kegiatan_id", "nama_pengaju", "tanggal", "bagian_id", "teknisi_id", "nip_pengaju", "ruangan_id", "barang_id", "jumlah", "keterangan"];
     foreach ($arrayCek as $field) {
-        if (empty($_POST[$field])) {
-            $response = [
-                'status' => false,
-                'message' => "Semua Form Wajib diisi!"
-            ];
-            $jsonData = json_encode($response);
-            header('Content-Type: application/json');
-            echo $jsonData;
-
-            exit();
+        if (is_array($_POST[$field])) {
+            foreach ($_POST[$field] as $value) {
+                if (!isset($value) || $value === '') {
+                    $response = [
+                        'status' => false,
+                        'message' => "Semua Form Wajib diisi!"
+                    ];
+                    $jsonData = json_encode($response);
+                    header('Content-Type: application/json');
+                    echo $jsonData;
+                    exit();
+                }
+            }
+        } else {
+            foreach ($arrayCek as $field) {
+                if (!isset($_POST[$field]) || $_POST[$field] === '') {
+                    $response = [
+                        'status' => false,
+                        'message' => "Semua Form Wajib diisi!"
+                    ];
+                    $jsonData = json_encode($response);
+                    header('Content-Type: application/json');
+                    echo $jsonData;
+                    exit();
+                }
+            }
         }
     }
 
@@ -26,12 +42,6 @@ if ($isAjaxRequest) {
     $bagian_id = htmlspecialchars($_POST['bagian_id']);
     $teknisi_id = htmlspecialchars($_POST['teknisi_id']);
     $nip_pengaju = htmlspecialchars($_POST['nip_pengaju']);
-
-    // Tabel Detail
-    // $id_ruangan = htmlspecialchars($_POST['id_ruangan']);
-    // $id_barang = htmlspecialchars($_POST['id_barang']);
-    // $jumlah = htmlspecialchars($_POST['jumlah']);
-    // $keterangan = htmlspecialchars($_POST['keterangan']);
 
     $query = $pdo->prepare("INSERT INTO tb_pengajuan (kegiatan_id, nama_pengaju, tanggal, bagian_id, teknisi_id, nip_pengaju) VALUE(?, ?, ?, ?, ?, ?)");
     $query->execute([$kegiatan_id, $nama_pengaju, $tanggal, $bagian_id, $teknisi_id, $nip_pengaju]);

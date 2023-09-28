@@ -4,6 +4,20 @@ if ($isAjaxRequest) {
 
     require __DIR__ . '/../connections/connections.php';
 
+    $arrayCek = ["bagian_id", "nama_barang", "satuan", "merk", "type"];
+    foreach ($arrayCek as $field) {
+        if (!isset($_POST[$field]) || $_POST[$field] === '') {
+            $response = [
+                'status' => false,
+                'message' => "Semua Form Wajib diisi!"
+            ];
+            $jsonData = json_encode($response);
+            header('Content-Type: application/json');
+            echo $jsonData;
+            exit();
+        }
+    }
+
     function editBarang($request)
     {
         global $pdo, $nama_barang, $bagian_id, $satuan, $merk, $type, $id;
