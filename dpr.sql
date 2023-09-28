@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2023 at 06:57 PM
+-- Generation Time: Sep 28, 2023 at 08:10 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -124,7 +124,7 @@ CREATE TABLE `tb_kegiatan` (
 --
 
 INSERT INTO `tb_kegiatan` (`id_kegiatan`, `nama_kegiatan`, `tahun_anggaran`, `nilai_anggaran`, `kode_rekening`, `nama_pptk`, `nip_pptk`, `nama_ppk`, `nip_ppk`) VALUES
-(2, 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah', '2023-09-27 16:14:19', 220000000, '5.3.2.12.12', 'IRMA RAHMAWATI, S.Sos, MM', '19810204 201001 2 002', 'Afwa', '19700922 199803 1 004');
+(1, 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah', '2023-09-28 18:09:22', 220000000, '5.3.2.12.12', 'IRMA RAHMAWATI, S.Sos, MM', '19810204 201001 2 002', 'Afwa', '19700922 199803 1 004');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE `tb_pengajuan` (
 --
 
 INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kegiatan_id`, `tanggal`, `bagian_id`, `teknisi_id`, `nama_pengaju`, `nip_pengaju`, `persetujuan`) VALUES
-(1, 2, '2023-09-28', '2', 2, 'Alberiansyah', '123', 0);
+(1, 2, '2023-09-29', '1', 1, 'Alberiansyah', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -171,9 +171,7 @@ CREATE TABLE `tb_pengajuan_detail` (
 --
 
 INSERT INTO `tb_pengajuan_detail` (`id_pengajuan_detail`, `pengajuan_id`, `ruangan_id`, `barang_id`, `jumlah`, `keterangan`, `persetujuan`) VALUES
-(1, 1, 1, 1, '1', '123', 0),
-(2, 1, 2, 2, '2', '123', 0),
-(3, 1, 3, 3, '3', '123', 0);
+(1, 1, 1, 1, '1', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -258,7 +256,7 @@ CREATE TABLE `tb_teknisi` (
 --
 
 INSERT INTO `tb_teknisi` (`id_teknisi`, `bagian_id`, `nama_teknisi`, `no_telp`, `no_nik`, `alamat`, `email`) VALUES
-(1, 1, 'ANTON HERMAWAN', '', '', 'Jl. Test', ''),
+(1, 1, 'ANTON HERMAWAN', '', '', '', ''),
 (2, 2, 'Ari', '', '', '', ''),
 (3, 6, 'ASEP', '', '', '', ''),
 (4, 7, 'AYI KURNIA', '', '', '', ''),
@@ -395,7 +393,7 @@ ALTER TABLE `tb_barang`
 -- AUTO_INCREMENT for table `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan`
@@ -407,7 +405,7 @@ ALTER TABLE `tb_pengajuan`
 -- AUTO_INCREMENT for table `tb_pengajuan_detail`
 --
 ALTER TABLE `tb_pengajuan_detail`
-  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
