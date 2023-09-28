@@ -61,7 +61,12 @@ $no = 1;
                                                     <td><?= empty($data->nip_pengaju) ? '-' : $data->nip_pengaju ?></td>
                                                     <td><?= ($data->persetujuan === 0) ? 'Belum disetujui' : (($data->persetujuan === 1) ? 'Disetujui' : '-') ?></td>
                                                     <td>
-                                                        <a href="tambah-pengajuan?id_kegiatan=<?= $data->id_kegiatan ?>"><button type="button" class="btn btn-primary">Tambah Pengajuan</button></a></a>
+                                                        <?php if (!empty($data->persetujuan)) : ?>
+                                                            <a href="tambah-pengajuan?id_kegiatan=<?= $data->id_kegiatan ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a></a>
+                                                        <?php else : ?>
+                                                            <a href=""><button type="button" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></button></a>
+                                                            <a href=""><button type="button" class="btn btn-xs btn-secondary"><i class="fa fa-edit"></i></button></a>
+                                                        <?php endif; ?>
                                                         <!-- <button type="button" class="btn btn-danger" id="btnhapusBarang" data-id="<?= $data->id_barang ?>">Batalkan</button> -->
                                                     </td>
                                                 </tr>

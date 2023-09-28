@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2023 at 06:15 PM
+-- Generation Time: Sep 28, 2023 at 06:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,42 +65,41 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id_barang`, `bagian_id`, `nama_barang`, `satuan`, `merk`, `type`) VALUES
-(1, 0, '', '', '', ''),
-(2, 6, 'Cat Besi', 'Kaleng', 'Avian', 'Putih'),
-(3, 6, 'Foot Valve', 'Buah', 'Setara', ''),
-(4, 1, 'Freon R11', 'Kaleng', '', ''),
-(5, 1, 'Freon R410a', 'Kaleng', '', ''),
-(6, 3, 'J1k Antena TV', 'Buah', 'Setara', 'Cowo'),
-(7, 6, 'Jet Washer 1/2\"', 'Buah', '', ''),
-(8, 3, 'Kabel Antena (Coaxial)', 'Meter', 'RG6', 'Coaxial'),
-(9, 3, 'Kabel NYM 4x2,5 mm2', 'Meter', 'Suppreme', 'Nym 4x2,5'),
-(10, 6, 'Kawat Tali Beton', 'Meter', 'Setara', 'Bendrat'),
-(11, 6, 'Keni PVC 1/2\"', 'Batang', '', ''),
-(12, 6, 'Keni PVC 2,5 Inc', 'Buah', 'Setara', ''),
-(13, 6, 'Keni PVC 3/4\"', 'Buah', '', ''),
-(14, 6, 'Keran Dinding 1/2\"', 'Buah', 'Onda', ''),
-(15, 6, 'Keran Wastafel 1/2\"', 'Buah', '', ''),
-(16, 6, 'Kunci Ring Pas', 'Buah', 'Tekiro', 'No.10'),
-(17, 6, 'Kuwas Cat 1,5', 'Buah', 'Setara', '11/2'),
-(18, 3, 'Lampu SL 23 Watt', 'Buah', 'Philips', '23 Watt'),
-(19, 3, 'Lampu TL 20', 'Buah', 'Philips', 'TL 20'),
-(20, 6, 'Lem', 'Kaleng', 'Asahi', ''),
-(21, 6, 'Pipa PVC', 'Batang', 'Wavin', '3/4\"'),
-(22, 6, 'Pipa PVC 1/2\"', 'Batang', '', ''),
-(23, 6, 'Pompa 125 Watt', 'Unit', 'Panasonic', 'GA 130'),
-(24, 6, 'Pompa Air 125Watt', 'Unit', '', ''),
-(25, 1, 'Pompa Drain 1', 'Unit', '', ''),
-(26, 6, 'Pompa Seawage 1500Watt', 'Unit', 'Ebara', '3 Fasa'),
-(27, 6, 'Roda Gerobak', 'Buah', 'Setara', '15cm'),
-(28, 6, 'Seal Tape', 'Buah', '', ''),
-(29, 6, 'Skrup Gypsum', 'Dus', 'No Brand', ''),
-(30, 6, 'Sock Drat Luar PVC', 'Buah', 'Setara', '3/4'),
-(31, 6, 'Socket PVC', 'Buah', 'Setara', '3/4\"'),
-(32, 3, 'Splitter Antena TV 2 Way', 'Buah', 'Rapid', '2 Way'),
-(33, 6, 'Tambang Plastik D2cm', 'Meter', 'Setara', 'Plastik 2Cm'),
-(34, 6, 'Tinner Cat', 'Kaleng', 'Setara', '-'),
-(35, 6, 'Union Sock', 'Buah', 'Setara', ''),
-(36, 6, 'Water Mur 2,5 Inc', 'Buah', 'Setara', '');
+(1, 6, 'Cat Besi', 'Kaleng', 'Avian', 'Putih'),
+(2, 6, 'Foot Valve', 'Buah', 'Setara', ''),
+(3, 1, 'Freon R11', 'Kaleng', '', ''),
+(4, 1, 'Freon R410a', 'Kaleng', '', ''),
+(5, 3, 'J1k Antena TV', 'Buah', 'Setara', 'Cowo'),
+(6, 6, 'Jet Washer 1/2\"', 'Buah', '', ''),
+(7, 3, 'Kabel Antena (Coaxial)', 'Meter', 'RG6', 'Coaxial'),
+(8, 3, 'Kabel NYM 4x2,5 mm2', 'Meter', 'Suppreme', 'Nym 4x2,5'),
+(9, 6, 'Kawat Tali Beton', 'Meter', 'Setara', 'Bendrat'),
+(10, 6, 'Keni PVC 1/2\"', 'Batang', '', ''),
+(11, 6, 'Keni PVC 2,5 Inc', 'Buah', 'Setara', ''),
+(12, 6, 'Keni PVC 3/4\"', 'Buah', '', ''),
+(13, 6, 'Keran Dinding 1/2\"', 'Buah', 'Onda', ''),
+(14, 6, 'Keran Wastafel 1/2\"', 'Buah', '', ''),
+(15, 6, 'Kunci Ring Pas', 'Buah', 'Tekiro', 'No.10'),
+(16, 6, 'Kuwas Cat 1,5', 'Buah', 'Setara', '11/2'),
+(17, 3, 'Lampu SL 23 Watt', 'Buah', 'Philips', '23 Watt'),
+(18, 3, 'Lampu TL 20', 'Buah', 'Philips', 'TL 20'),
+(19, 6, 'Lem', 'Kaleng', 'Asahi', ''),
+(20, 6, 'Pipa PVC', 'Batang', 'Wavin', '3/4\"'),
+(21, 6, 'Pipa PVC 1/2\"', 'Batang', '', ''),
+(22, 6, 'Pompa 125 Watt', 'Unit', 'Panasonic', 'GA 130'),
+(23, 6, 'Pompa Air 125Watt', 'Unit', '', ''),
+(24, 1, 'Pompa Drain 1', 'Unit', '', ''),
+(25, 6, 'Pompa Seawage 1500Watt', 'Unit', 'Ebara', '3 Fasa'),
+(26, 6, 'Roda Gerobak', 'Buah', 'Setara', '15cm'),
+(27, 6, 'Seal Tape', 'Buah', '', ''),
+(28, 6, 'Skrup Gypsum', 'Dus', 'No Brand', ''),
+(29, 6, 'Sock Drat Luar PVC', 'Buah', 'Setara', '3/4'),
+(30, 6, 'Socket PVC', 'Buah', 'Setara', '3/4\"'),
+(31, 3, 'Splitter Antena TV 2 Way', 'Buah', 'Rapid', '2 Way'),
+(32, 6, 'Tambang Plastik D2cm', 'Meter', 'Setara', 'Plastik 2Cm'),
+(33, 6, 'Tinner Cat', 'Kaleng', 'Setara', '-'),
+(34, 6, 'Union Sock', 'Buah', 'Setara', ''),
+(35, 6, 'Water Mur 2,5 Inc', 'Buah', 'Setara', '');
 
 -- --------------------------------------------------------
 
@@ -135,14 +134,21 @@ INSERT INTO `tb_kegiatan` (`id_kegiatan`, `nama_kegiatan`, `tahun_anggaran`, `ni
 
 CREATE TABLE `tb_pengajuan` (
   `id_pengajuan` int(11) NOT NULL,
+  `kegiatan_id` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `nama_bagian` varchar(50) NOT NULL,
-  `nama_teknisi` varchar(50) NOT NULL,
+  `bagian_id` varchar(50) NOT NULL,
+  `teknisi_id` int(11) NOT NULL,
   `nama_pengaju` varchar(50) NOT NULL,
   `nip_pengaju` varchar(50) NOT NULL,
-  `nama_kegiatan` text NOT NULL,
   `persetujuan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_pengajuan`
+--
+
+INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kegiatan_id`, `tanggal`, `bagian_id`, `teknisi_id`, `nama_pengaju`, `nip_pengaju`, `persetujuan`) VALUES
+(1, 2, '2023-09-28', '2', 2, 'Alberiansyah', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -154,13 +160,20 @@ CREATE TABLE `tb_pengajuan_detail` (
   `id_pengajuan_detail` int(11) NOT NULL,
   `pengajuan_id` int(11) NOT NULL,
   `ruangan_id` int(11) NOT NULL,
-  `nomor` int(11) NOT NULL,
-  `nama_barang` varchar(30) NOT NULL,
+  `barang_id` int(11) NOT NULL,
   `jumlah` varchar(30) NOT NULL,
-  `nama_ruangan` int(11) NOT NULL,
   `keterangan` text NOT NULL,
   `persetujuan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_pengajuan_detail`
+--
+
+INSERT INTO `tb_pengajuan_detail` (`id_pengajuan_detail`, `pengajuan_id`, `ruangan_id`, `barang_id`, `jumlah`, `keterangan`, `persetujuan`) VALUES
+(1, 1, 1, 1, '1', '123', 0),
+(2, 1, 2, 2, '2', '123', 0),
+(3, 1, 3, 3, '3', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -376,25 +389,25 @@ ALTER TABLE `tb_bagian`
 -- AUTO_INCREMENT for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan_detail`
 --
 ALTER TABLE `tb_pengajuan_detail`
-  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
