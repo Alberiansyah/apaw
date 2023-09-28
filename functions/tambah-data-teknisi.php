@@ -5,6 +5,21 @@ if ($isAjaxRequest) {
 
     require __DIR__ . '/../connections/connections.php';
 
+    $arrayCek = ["bagian_id", "nama_teknisi", "no_telp", "no_nik", "alamat", "email"];
+    foreach ($arrayCek as $field) {
+        if (empty($_POST[$field])) {
+            $response = [
+                'status' => false,
+                'message' => "Semua Form Wajib diisi!"
+            ];
+            $jsonData = json_encode($response);
+            header('Content-Type: application/json');
+            echo $jsonData;
+
+            exit();
+        }
+    }
+
     $bagian_id = htmlspecialchars($_POST['bagian_id']);
     $nama_teknisi = htmlspecialchars($_POST['nama_teknisi']);
     $no_telp = htmlspecialchars($_POST['no_telp']);

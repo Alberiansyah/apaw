@@ -4,6 +4,8 @@ require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
 $dataKegiatan = tampilData("SELECT tb_kegiatan.*, tb_pengajuan.*, tb_teknisi.*, tb_bagian.* FROM tb_kegiatan LEFT JOIN tb_pengajuan ON tb_pengajuan.kegiatan_id = tb_kegiatan.id_kegiatan LEFT JOIN tb_teknisi ON tb_teknisi.id_teknisi = tb_pengajuan.teknisi_id LEFT JOIN tb_bagian ON tb_bagian.id_bagian = tb_pengajuan.bagian_id");
+// var_dump(print_r($dataKegiatan));
+// exit;
 $dataUser = tampilData("SELECT * FROM tb_user");
 $dataRuangan = tampilData("SELECT * FROM tb_ruangan");
 $dataBarang = tampilData("SELECT * FROM tb_barang");
@@ -61,9 +63,9 @@ $no = 1;
                                                     <td><?= empty($data->nip_pengaju) ? '-' : $data->nip_pengaju ?></td>
                                                     <td><?= ($data->persetujuan === 0) ? 'Belum disetujui' : (($data->persetujuan === 1) ? 'Disetujui' : '-') ?></td>
                                                     <td>
-                                                        <?php if (!empty($data->persetujuan)) : ?>
-                                                            <a href="tambah-pengajuan?id_kegiatan=<?= $data->id_kegiatan ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a></a>
-                                                        <?php else : ?>
+                                                        <?php if ($data->persetujuan == "") : ?>
+                                                            <a href="tambah-pengajuan?id_kegiatan=<?= $data->id_kegiatan ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a>
+                                                        <?php elseif ($data->persetujuan === 0) :  ?>
                                                             <a href=""><button type="button" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></button></a>
                                                             <a href=""><button type="button" class="btn btn-xs btn-secondary"><i class="fa fa-edit"></i></button></a>
                                                         <?php endif; ?>

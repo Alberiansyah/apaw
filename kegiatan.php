@@ -92,7 +92,65 @@ $no = 1;
                 <h5 class="modal-title text-white">Tambah Data</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
-
+            <form method="POST" id="postBarang">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="nama_kegiatan" class="">Nama Kegiatan</label>
+                                <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="nilai_anggaran" class="">Nilai Anggaran</label>
+                                <input type="hidden" class="form-control" name="nilai_anggaran" id="nilai_anggaran">
+                                <input type="text" class="form-control" id="nilai_anggaran_manipulasi">
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_pptk" class="">Nama PPTK</label>
+                                <select id="nama_pptk" class="single-select" name="nama_pptk">
+                                    <?php foreach ($dataUser as $data) : ?>
+                                        <?php if ($data->role_id == 1 || $data->role_id == 3) : ?>
+                                            <option value="<?= $data->nama_lengkap ?>"><?= $data->nama_lengkap ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nip_pptk" class="">NIP PPTK</label>
+                                <input type="text" class="form-control" name="nip_pptk" id="nip_pptk">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="tahun_anggaran" class="">Tahun Anggaran</label>
+                                <input type="text" class="form-control date" name="tahun_anggaran" id="tahun_anggaran">
+                            </div>
+                            <div class="form-group">
+                                <label for="kode_rekening" class="">Kode Rekening</label>
+                                <input type="text" class="form-control" name="kode_rekening" id="kode_rekening">
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_ppk" class="">Nama PPK</label>
+                                <select id="nama_ppk" class="single-select" name="nama_ppk">
+                                    <?php foreach ($dataUser as $data) : ?>
+                                        <?php if ($data->role_id == 2) : ?>
+                                            <option value="<?= $data->nama_lengkap ?>"><?= $data->nama_lengkap ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nip_ppk" class="">NIP PPK</label>
+                                <input type="text" class="form-control" name="nip_ppk" id="nip_ppk">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" id="tambahKegiatan">Simpan</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

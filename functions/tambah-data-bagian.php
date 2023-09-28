@@ -5,6 +5,21 @@ if ($isAjaxRequest) {
 
     require __DIR__ . '/../connections/connections.php';
 
+    $arrayCek = ["nama_bagian"];
+    foreach ($arrayCek as $field) {
+        if (empty($_POST[$field])) {
+            $response = [
+                'status' => false,
+                'message' => "Semua Form Wajib diisi!"
+            ];
+            $jsonData = json_encode($response);
+            header('Content-Type: application/json');
+            echo $jsonData;
+
+            exit();
+        }
+    }
+
     $namaBagian = htmlspecialchars($_POST['nama_bagian']);
 
     $query = $pdo->prepare("INSERT INTO tb_bagian (nama_bagian) VALUE(?)");
