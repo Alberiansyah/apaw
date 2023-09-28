@@ -17,7 +17,7 @@
                 </ul>
             </li>
             <li class="nav-label first">Transaksi</li>
-            <li><a href="has-arrow"><i class="ti-layout-cta-left"></i><span class="nav-text">Transaksi</span></a>
+            <li id="transaksi"><a href="has-arrow"><i class="ti-layout-cta-left"></i><span class="nav-text">Transaksi</span></a>
                 <ul>
                     <li><a href="kegiatan">Kegiatan</a></li>
                     <li><a href="pengajuan">Pengajuan</a></li>
