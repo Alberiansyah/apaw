@@ -58,10 +58,14 @@ $no = 1;
                                                     <td><?= empty($data->nama_bagian) ? '-' : $data->nama_bagian ?></td>
                                                     <td><?= empty($data->nama_pengaju) ? '-' : $data->nama_pengaju ?></td>
                                                     <td><?= empty($data->nip_pengaju) ? '-' : $data->nip_pengaju ?></td>
-                                                    <td><?= ($data->persetujuan === 0) ? 'Belum disetujui' : (($data->persetujuan === 1) ? 'Disetujui' : '-') ?></td>
+                                                    <td><?= ($data->persetujuan === 0) ? '<span class="badge badge-pill badge-danger">Belum disetujui</span>' : (($data->persetujuan === 1) ? '<span class="badge badge-pill badge-success">Disetujui</span>' : '-') ?></td>
                                                     <td>
                                                         <?php if ($data->persetujuan == "") : ?>
                                                             <a href="tambah-pengajuan?id_kegiatan=<?= encrypt($data->id_kegiatan) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a>
+                                                        <?php elseif (getRoleId($_SESSION['role_id']) === 2) : ?>
+                                                            <?php if ($data->persetujuan !== 1) : ?>
+                                                                <a href="setujui-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary" style="margin:2px;"><i class="fa fa-edit"></i></button></a><br>
+                                                            <?php endif; ?>
                                                         <?php elseif ($data->persetujuan === 0) :  ?>
                                                             <a href="detail-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-info" style="margin:2px;"><i class="fa fa-eye"></i></button></a>
                                                             <a href="edit-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary" style="margin:2px;"><i class="fa fa-edit"></i></button></a><br>

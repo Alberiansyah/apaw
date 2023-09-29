@@ -31,7 +31,7 @@ $no = 1;
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Kegiatan</h4>
+                        <h4 class="card-title">Edit Pengajuan</h4>
                     </div>
                     <form method="POST" id="postPengajuan" action="">
                         <div class="modal-body">

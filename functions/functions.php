@@ -72,3 +72,24 @@ function decrypt($payload)
 
     return $decrypted;
 }
+
+function getRoleId($role)
+{
+    $query = tampilDataFirst("SELECT * FROM tb_role WHERE id_role = '$role'");
+    $query = $query->id_role;
+    return $query;
+}
+
+function getRole($role)
+{
+    $query = tampilDataFirst("SELECT * FROM tb_role WHERE id_role = '$role'");
+    $query = $query->nama_role;
+    return $query;
+}
+
+function getName($name)
+{
+    $query = tampilDataFirst("SELECT * FROM tb_user WHERE id_user = '$name'");
+    $query = $query->nama_lengkap;
+    return $query;
+}

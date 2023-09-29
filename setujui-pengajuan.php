@@ -18,7 +18,7 @@ $no = 1;
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data</a></li>
                 <li class="breadcrumb-item"><a href="pengajuan">Pengajuan</a></li>
-                <li class="breadcrumb-item active">Info Data</li>
+                <li class="breadcrumb-item active">Detail Data</li>
             </ol>
         </div>
 
@@ -31,6 +31,7 @@ $no = 1;
                     <form method="POST" id="postPengajuan" action="">
                         <div class="modal-body">
                             <div class="row">
+                                <input type="hidden" class="form-control date" name="id_pengajuan" value="<?= encrypt($idPengajuan) ?>">
                                 <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
@@ -74,10 +75,12 @@ $no = 1;
                                         <th>Nama Barang</th>
                                         <th>Jumlah</th>
                                         <th>Keterangan</th>
+                                        <th class="text-center">Persetujuan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($dataPengajuanDetail as $data) : ?><tr>
+                                            <input type="hidden" name="id_pengajuan_detail[]" class="form-checkbox" value="<?= $data->id_pengajuan_detail; ?>" required>
                                             <td>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" value="<?= $data->nama_ruangan ?>" readonly>
@@ -98,13 +101,18 @@ $no = 1;
                                                     <textarea class="form-control" readonly><?= $data->keterangan ?></textarea>
                                                 </div>
                                             </td>
+                                            <td class="text-center">
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="persetujuan[]" <?= $data->persetujuan === 1 ? 'checked' : '' ?> class="form-checkbox" value="<?= $data->id_pengajuan_detail; ?>" required>
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
 
                                 </tbody>
                             </table>
                             <div class="modal-footer">
-                                <a href="pengajuan"><button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button></a>
+                                <button type="button" class="btn btn-secondary" id="setujui" data-dismiss="modal">Simpan</button>
                             </div>
                         </div>
                     </form>
@@ -122,6 +130,32 @@ $no = 1;
         transaksi.find("ul").addClass("mm-show")
         transaksi.find("ul li").addClass("mm-active")
         transaksi.find("ul li a:eq(1)").addClass("mm-active")
+    });
+</script>
+
+<script>
+    $(document).on("click", "#setujui", function() {
+        let form = $('#postPengajuan').serialize();
+        $.ajax({
+            url: "functions/setujui-pengajuan",
+            data: form,
+            type: 'POST',
+            success: function(response) {
+                if (response.status) {
+                    toastr.info(response.message);
+
+                    setTimeout(function() {
+                        window.location.href =
+                            "pengajuan";
+                    }, 1500);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(response) {
+                toastr.error(response.message);
+            }
+        });
     });
 </script>
 
