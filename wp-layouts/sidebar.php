@@ -23,6 +23,12 @@
                     <li><a href="pengajuan">Pengajuan</a></li>
                 </ul>
             </li>
+            <li><a href="has-arrow"><i class="ti-receipt"></i><span class="nav-text">Report</span></a>
+                <ul>
+                    <li><a href="laporan-pengajuan">Laporan Pengajuan</a></li>
+                    <li><a href="rekap-barang">Rekap Barang</a></li>
+                </ul>
+            </li>
             <li class="nav-label first">Sign Out</li>
             <li><a href="logout"><i class="ti-power-off"></i><span class="nav-text">Logout</span></a>
             </li>

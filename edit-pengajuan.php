@@ -3,8 +3,9 @@
 require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
-$idKegiatan = decrypt($_GET['id_kegiatan']);
-$dataKegiatan = tampilDataFirst("SELECT tb_kegiatan.*, tb_pengajuan.* FROM tb_kegiatan LEFT JOIN tb_pengajuan ON tb_pengajuan.kegiatan_id = tb_kegiatan.id_kegiatan WHERE id_kegiatan = '$idKegiatan'");
+$idPengajuan = decrypt($_GET['id_pengajuan']);
+$dataKegiatan = tampilDataFirst("SELECT tb_kegiatan.*, tb_pengajuan.*, tb_bagian.nama_bagian, tb_teknisi.nama_teknisi FROM tb_pengajuan LEFT JOIN tb_kegiatan ON tb_kegiatan.id_kegiatan = tb_pengajuan.kegiatan_id INNER JOIN tb_bagian ON tb_bagian.id_bagian = tb_pengajuan.bagian_id INNER JOIN tb_teknisi ON tb_teknisi.id_teknisi = tb_pengajuan.teknisi_id WHERE tb_pengajuan.id_pengajuan = '$idPengajuan'");
+$dataPengajuanDetail = tampilData("SELECT tb_pengajuan.*, tb_pengajuan_detail.*, tb_ruangan.*, tb_barang.* FROM tb_pengajuan INNER JOIN tb_pengajuan_detail ON tb_pengajuan_detail.pengajuan_id = tb_pengajuan.id_pengajuan INNER JOIN tb_ruangan ON tb_ruangan.id_ruangan = tb_pengajuan_detail.ruangan_id INNER JOIN tb_barang ON tb_barang.id_barang = tb_pengajuan_detail.barang_id WHERE tb_pengajuan.id_pengajuan = '$idPengajuan'");
 $dataUser = tampilData("SELECT * FROM tb_user");
 $dataTeknisi = tampilData("SELECT * FROM tb_teknisi");
 $dataRuangan = tampilData("SELECT * FROM tb_ruangan");
@@ -21,7 +22,8 @@ $no = 1;
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data</a></li>
-                <li class="breadcrumb-item active"><a href="pengajuan">Pengajuan</a></li>
+                <li class="breadcrumb-item"><a href="pengajuan">Pengajuan</a></li>
+                <li class="breadcrumb-item active">Edit Data</li>
             </ol>
         </div>
 
@@ -29,24 +31,26 @@ $no = 1;
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data Kegiatan</h4>
+                        <h4 class="card-title">Edit Kegiatan</h4>
                     </div>
-                    <form method="POST" id="postEditPengajuan" action="">
+                    <form method="POST" id="postPengajuan" action="">
                         <div class="modal-body">
                             <div class="row">
+                                <input type="hidden" class="form-control date" name="id_pengajuan" value="<?= encrypt($idPengajuan) ?>">
                                 <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="nama_kegiatan" class="">Nama Kegiatan</label>
-                                        <input type="hidden" class="form-control date" name="kegiatan_id" value="<?= encrypt($dataKegiatan->id_kegiatan) ?>">
                                         <textarea style="cursor: not-allowed;" id="nama_kegiatan" class="form-control" rows="1" disabled><?= $dataKegiatan->nama_kegiatan ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_pengaju" class="">Nama Pengaju</label>
                                         <select id="nama_pengaju" class="single-select" name="nama_pengaju">
                                             <?php foreach ($dataUser as $data) : ?>
-                                                <?php if ($data->role_id == 1 || $data->role_id == 3) : ?>
+                                                <?php if (($data->role_id == 1 || $data->role_id == 3) && $data->nama_lengkap == $dataKegiatan->nama_pengaju) : ?>
+                                                    <option value="<?= $data->nama_lengkap ?>" selected><?= $data->nama_lengkap ?></option>
+                                                <?php elseif ($data->role_id == 1 || $data->role_id == 3) : ?>
                                                     <option value="<?= $data->nama_lengkap ?>"><?= $data->nama_lengkap ?></option>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
@@ -54,7 +58,7 @@ $no = 1;
                                     </div>
                                     <div class="form-group">
                                         <label for="nip_pengaju" class="">NIP Pengaju</label>
-                                        <input type="text" class="form-control" name="nip_pengaju" id="nip_pengaju">
+                                        <input type="text" class="form-control" name="nip_pengaju" value="<?= $dataKegiatan->nip_pengaju ?>">
                                     </div>
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
@@ -62,7 +66,11 @@ $no = 1;
                                         <label for="bagian_id" class="">Nama Bagian</label>
                                         <select id="bagian_id" class="single-select" name="bagian_id">
                                             <?php foreach ($dataBagian as $data) : ?>
-                                                <option value="<?= $data->id_bagian ?>"><?= $data->nama_bagian ?></option>
+                                                <?php if ($data->id_bagian == $dataKegiatan->bagian_id) : ?>
+                                                    <option value="<?= encrypt($data->id_bagian) ?>" selected><?= $data->nama_bagian ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= encrypt($data->id_bagian) ?>"><?= $data->nama_bagian ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -70,13 +78,17 @@ $no = 1;
                                         <label for="teknisi_id" class="">Nama Teknisi</label>
                                         <select id="single-select" class="form-control" name="teknisi_id">
                                             <?php foreach ($dataTeknisi as $data) : ?>
-                                                <option value="<?= $data->id_teknisi ?>"><?= $data->nama_teknisi ?></option>
+                                                <?php if ($data->id_teknisi == $dataKegiatan->teknisi_id) : ?>
+                                                    <option value="<?= encrypt($data->id_teknisi) ?>" selected><?= $data->nama_teknisi ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= encrypt($data->id_teknisi) ?>"><?= $data->nama_teknisi ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal" class="">Tanggal</label>
-                                        <input type="text" class="form-control date" name="tanggal" id="tanggal">
+                                        <input type="text" class="form-control date" name="tanggal" value="<?= $dataKegiatan->tanggal ?>">
                                     </div>
                                 </div>
                                 <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
@@ -92,50 +104,39 @@ $no = 1;
                                         <th>Nama Barang</th>
                                         <th>Jumlah</th>
                                         <th>Keterangan</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-group">
-                                                <select id="" class="form-control" name="ruangan_id[]">
-                                                    <?php foreach ($dataRuangan as $data) : ?>
-                                                        <option value="<?= $data->id_ruangan ?>"><?= $data->nama_ruangan ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <select id="" class="form-control" name="barang_id[]">
-                                                    <?php foreach ($dataBarang as $data) : ?>
-                                                        <option value="<?= $data->id_barang ?>"><?= $data->nama_barang ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <input type="number" min="1" class="form-control" id="jumlah" name="jumlah[]" value="1">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <textarea id="keterangan" name="keterangan[]" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-xs btn-primary" id="tambahRow"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php foreach ($dataPengajuanDetail as $data) : ?><tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" name="ruangan_id[]" value="<?= encrypt($data->ruangan_id) ?>">
+                                                    <input type="text" class="form-control" value="<?= $data->nama_ruangan ?>" readonly>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" name="barang_id[]" value="<?= encrypt($data->barang_id) ?>">
+                                                    <input type="text" class="form-control" value="<?= $data->nama_barang ?>" readonly>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="number" min="1" class="form-control" name="jumlah[]" value="<?= $data->jumlah ?>">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="keterangan[]"><?= $data->keterangan ?></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="button" class="btn btn-primary" id="tambahPengajuan">Simpan</button>
+                                <a href="pengajuan"><button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button></a>
+                                <button type="button" class="btn btn-info" id="editPengajuan">Ubah</button>
                             </div>
                         </div>
                     </form>
@@ -157,36 +158,15 @@ $no = 1;
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#tambahRow').click(function() {
-            var original = $('table.tableDetail tbody tr').first();
-            var clone = $('table.tableDetail tbody tr').first().clone();
-            clone.find('input').val(1);
-            clone.find('textarea').val();
-            clone.find('#tambahRow').attr('id', 'deleteRow').removeClass('btn-primary').addClass('btn-danger').html('<i class="fa fa-trash"></i>');
-            $('table.tableDetail tbody').append(clone);
-
-            // Inisialisasi Select2 pada elemen select yang baru diklon
-            // original.find('select').select2();
-            // clone.find('select').select2();
-        });
-
-        $('table.tableDetail').on('click', '#deleteRow', function() {
-            $(this).closest('tr').remove();
-        });
-    });
-</script>
-
-<script>
-    $(document).on("click", "#tambahPengajuan", function() {
-        let form = $('#postEditPengajuan').serialize();
+    $(document).on("click", "#editPengajuan", function() {
+        let form = $('#postPengajuan').serialize();
         $.ajax({
-            url: "functions/tambah-data-pengajuan",
+            url: "functions/edit-pengajuan",
             data: form,
             type: 'POST',
             success: function(response) {
                 if (response.status) {
-                    toastr.success(response.message);
+                    toastr.info(response.message);
 
                     setTimeout(function() {
                         window.location.href =
@@ -202,7 +182,6 @@ $no = 1;
         });
     });
 </script>
-
 
 </body>
 

@@ -3,7 +3,7 @@
 $isAjaxRequest = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 if ($isAjaxRequest) {
 
-    require __DIR__ . '/../connections/connections.php';
+    require __DIR__ . '/functions.php';
 
     $arrayCek = ["kegiatan_id", "nama_pengaju", "tanggal", "bagian_id", "teknisi_id", "nip_pengaju", "ruangan_id", "barang_id", "jumlah", "keterangan"];
     foreach ($arrayCek as $field) {
@@ -36,7 +36,7 @@ if ($isAjaxRequest) {
         }
     }
 
-    $kegiatan_id = htmlspecialchars($_POST['kegiatan_id']);
+    $kegiatan_id = decrypt($_POST['kegiatan_id']);
     $nama_pengaju = htmlspecialchars($_POST['nama_pengaju']);
     $tanggal = htmlspecialchars($_POST['tanggal']);
     $bagian_id = htmlspecialchars($_POST['bagian_id']);

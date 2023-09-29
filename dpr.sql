@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2023 at 08:10 PM
+-- Generation Time: Sep 29, 2023 at 04:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -108,7 +108,7 @@ INSERT INTO `tb_barang` (`id_barang`, `bagian_id`, `nama_barang`, `satuan`, `mer
 --
 
 CREATE TABLE `tb_kegiatan` (
-  `id_kegiatan` int(11) NOT NULL,
+  `id_kegiatan` bigint(20) NOT NULL,
   `nama_kegiatan` text NOT NULL,
   `tahun_anggaran` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `nilai_anggaran` bigint(20) NOT NULL,
@@ -133,22 +133,15 @@ INSERT INTO `tb_kegiatan` (`id_kegiatan`, `nama_kegiatan`, `tahun_anggaran`, `ni
 --
 
 CREATE TABLE `tb_pengajuan` (
-  `id_pengajuan` int(11) NOT NULL,
-  `kegiatan_id` int(11) NOT NULL,
-  `tanggal` date NOT NULL,
+  `id_pengajuan` bigint(20) NOT NULL,
+  `kegiatan_id` bigint(20) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `bagian_id` varchar(50) NOT NULL,
   `teknisi_id` int(11) NOT NULL,
   `nama_pengaju` varchar(50) NOT NULL,
   `nip_pengaju` varchar(50) NOT NULL,
   `persetujuan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_pengajuan`
---
-
-INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kegiatan_id`, `tanggal`, `bagian_id`, `teknisi_id`, `nama_pengaju`, `nip_pengaju`, `persetujuan`) VALUES
-(1, 2, '2023-09-29', '1', 1, 'Alberiansyah', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -157,21 +150,14 @@ INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kegiatan_id`, `tanggal`, `bagian_id
 --
 
 CREATE TABLE `tb_pengajuan_detail` (
-  `id_pengajuan_detail` int(11) NOT NULL,
-  `pengajuan_id` int(11) NOT NULL,
+  `id_pengajuan_detail` bigint(20) NOT NULL,
+  `pengajuan_id` bigint(20) NOT NULL,
   `ruangan_id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `jumlah` varchar(30) NOT NULL,
   `keterangan` text NOT NULL,
   `persetujuan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_pengajuan_detail`
---
-
-INSERT INTO `tb_pengajuan_detail` (`id_pengajuan_detail`, `pengajuan_id`, `ruangan_id`, `barang_id`, `jumlah`, `keterangan`, `persetujuan`) VALUES
-(1, 1, 1, 1, '1', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -243,7 +229,7 @@ INSERT INTO `tb_ruangan` (`id_ruangan`, `nama_ruangan`, `lantai`, `zona`) VALUES
 
 CREATE TABLE `tb_teknisi` (
   `id_teknisi` int(11) NOT NULL,
-  `bagian_id` int(1) NOT NULL,
+  `bagian_id` int(11) NOT NULL,
   `nama_teknisi` varchar(50) NOT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
   `no_nik` varchar(30) NOT NULL,
@@ -329,7 +315,8 @@ ALTER TABLE `tb_bagian`
 -- Indexes for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  ADD PRIMARY KEY (`id_barang`);
+  ADD PRIMARY KEY (`id_barang`),
+  ADD KEY `bagian_id` (`bagian_id`);
 
 --
 -- Indexes for table `tb_kegiatan`
@@ -341,13 +328,19 @@ ALTER TABLE `tb_kegiatan`
 -- Indexes for table `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
-  ADD PRIMARY KEY (`id_pengajuan`);
+  ADD PRIMARY KEY (`id_pengajuan`),
+  ADD KEY `kegiatan_id` (`kegiatan_id`),
+  ADD KEY `bagian_id` (`bagian_id`),
+  ADD KEY `teknisi_id` (`teknisi_id`);
 
 --
 -- Indexes for table `tb_pengajuan_detail`
 --
 ALTER TABLE `tb_pengajuan_detail`
-  ADD PRIMARY KEY (`id_pengajuan_detail`);
+  ADD PRIMARY KEY (`id_pengajuan_detail`),
+  ADD KEY `pengajuan_id` (`pengajuan_id`),
+  ADD KEY `ruangan_id` (`ruangan_id`),
+  ADD KEY `barang_id` (`barang_id`);
 
 --
 -- Indexes for table `tb_role`
@@ -365,13 +358,15 @@ ALTER TABLE `tb_ruangan`
 -- Indexes for table `tb_teknisi`
 --
 ALTER TABLE `tb_teknisi`
-  ADD PRIMARY KEY (`id_teknisi`);
+  ADD PRIMARY KEY (`id_teknisi`),
+  ADD KEY `bagian_id` (`bagian_id`);
 
 --
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -393,19 +388,19 @@ ALTER TABLE `tb_barang`
 -- AUTO_INCREMENT for table `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kegiatan` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengajuan` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pengajuan_detail`
 --
 ALTER TABLE `tb_pengajuan_detail`
-  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengajuan_detail` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
@@ -430,6 +425,41 @@ ALTER TABLE `tb_teknisi`
 --
 ALTER TABLE `tb_user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tb_barang`
+--
+ALTER TABLE `tb_barang`
+  ADD CONSTRAINT `tb_barang_ibfk_1` FOREIGN KEY (`bagian_id`) REFERENCES `tb_bagian` (`id_bagian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `tb_pengajuan`
+--
+ALTER TABLE `tb_pengajuan`
+  ADD CONSTRAINT `tb_pengajuan_ibfk_1` FOREIGN KEY (`kegiatan_id`) REFERENCES `tb_kegiatan` (`id_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_pengajuan_detail`
+--
+ALTER TABLE `tb_pengajuan_detail`
+  ADD CONSTRAINT `tb_pengajuan_detail_ibfk_2` FOREIGN KEY (`ruangan_id`) REFERENCES `tb_ruangan` (`id_ruangan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `tb_pengajuan_detail_ibfk_3` FOREIGN KEY (`pengajuan_id`) REFERENCES `tb_pengajuan` (`id_pengajuan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_teknisi`
+--
+ALTER TABLE `tb_teknisi`
+  ADD CONSTRAINT `tb_teknisi_ibfk_1` FOREIGN KEY (`bagian_id`) REFERENCES `tb_bagian` (`id_bagian`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `tb_user`
+--
+ALTER TABLE `tb_user`
+  ADD CONSTRAINT `tb_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
