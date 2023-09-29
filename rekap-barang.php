@@ -2,11 +2,8 @@
 require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
-$dataKegiatan = tampilData("SELECT tb_kegiatan.*, tb_pengajuan.*, tb_teknisi.*, tb_bagian.* FROM tb_kegiatan LEFT JOIN tb_pengajuan ON tb_pengajuan.kegiatan_id = tb_kegiatan.id_kegiatan LEFT JOIN tb_teknisi ON tb_teknisi.id_teknisi = tb_pengajuan.teknisi_id LEFT JOIN tb_bagian ON tb_bagian.id_bagian = tb_pengajuan.bagian_id");
-$dataUser = tampilData("SELECT * FROM tb_user");
-$dataRuangan = tampilData("SELECT * FROM tb_ruangan");
-$dataBarang = tampilData("SELECT * FROM tb_barang");
-$countKegiatan = count($dataKegiatan);
+$dataRekap = tampilData("SELECT tb_pengajuan_detail.*, tb_barang.* FROM tb_pengajuan_detail INNER JOIN tb_barang ON tb_barang.id_barang = tb_pengajuan_detail.barang_id");
+$countRekap = count($dataRekap);
 $no = 1;
 ?>
 <?php require __DIR__ . '/wp-layouts/resources.php'; ?>
@@ -18,7 +15,7 @@ $no = 1;
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data</a></li>
-                <li class="breadcrumb-item active"><a href="<?= getSegment() ?>">Pengajuan</a></li>
+                <li class="breadcrumb-item active"><a href="<?= getSegment() ?>">Rekap Barang</a></li>
             </ol>
         </div>
         <!-- row -->
@@ -27,7 +24,8 @@ $no = 1;
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Data Pengajuan</h4>
+                            <h4 class="card-title">Data Rekap</h4>
+                            <a href="cetak-rekap" target="_blank"><button class="btn btn-warning"><i class="fa fa-print"></i></button></a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -35,40 +33,25 @@ $no = 1;
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Kegiatan</th>
-                                            <th>Nama Teknisi</th>
-                                            <th>Nama Bagian</th>
-                                            <th>Nama Pengaju</th>
-                                            <th>NIP Pengaju</th>
-                                            <th>Persetujuan</th>
-                                            <th>Aksi</th>
+                                            <th>Nama Barang</th>
+                                            <th>Nama Merk</th>
+                                            <th>Jumlah</th>
+                                            <th>Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if ($countKegiatan < 1) : ?>
+                                        <?php if ($countRekap < 1) : ?>
                                             <tr>
                                                 <td colspan="8" style="text-align: center;">Belum terdapat data, silahkan tambah terlebih dahulu</td>
                                             </tr>
                                         <?php else : ?>
-                                            <?php foreach ($dataKegiatan as $data) : ?>
+                                            <?php foreach ($dataRekap as $data) : ?>
                                                 <tr>
                                                     <td><?= $no++ ?></td>
-                                                    <td><?= empty($data->nama_kegiatan) ? '-' : $data->nama_kegiatan ?></td>
-                                                    <td><?= empty($data->nama_teknisi) ? '-' : $data->nama_teknisi ?></td>
-                                                    <td><?= empty($data->nama_bagian) ? '-' : $data->nama_bagian ?></td>
-                                                    <td><?= empty($data->nama_pengaju) ? '-' : $data->nama_pengaju ?></td>
-                                                    <td><?= empty($data->nip_pengaju) ? '-' : $data->nip_pengaju ?></td>
-                                                    <td><?= ($data->persetujuan === 0) ? 'Belum disetujui' : (($data->persetujuan === 1) ? 'Disetujui' : '-') ?></td>
-                                                    <td>
-                                                        <?php if ($data->persetujuan == "") : ?>
-                                                            <a href="tambah-pengajuan?id_kegiatan=<?= encrypt($data->id_kegiatan) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a>
-                                                        <?php elseif ($data->persetujuan === 0) :  ?>
-                                                            <a href="detail-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-info" style="margin:2px;"><i class="fa fa-eye"></i></button></a>
-                                                            <a href="edit-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary" style="margin:2px;"><i class="fa fa-edit"></i></button></a><br>
-                                                            <a href="cetak-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>" target="_blank"><button type="button" style="margin:2px;" class="btn btn-xs btn-warning"><i class="fa fa-print"></i></button></a>
-                                                            <button type="button" class="btn btn-xs btn-danger" style="margin:2px;" id="btnBatalkan" data-id="<?= encrypt($data->id_pengajuan) ?>"><i class="fa fa-close"></i></button>
-                                                        <?php endif; ?>
-                                                    </td>
+                                                    <td><?= $data->nama_barang++ ?></td>
+                                                    <td><?= $data->merk ?></td>
+                                                    <td><?= $data->jumlah ?></td>
+                                                    <td><?= $data->satuan ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>

@@ -140,9 +140,10 @@ foreach ($dataPengajuanDetail as $data) {
 $html .= '
             </tbody>
          </table>
-
+         <br>
+      <span>Jumlah Item ' . count($dataPengajuanDetail) . '</span>
       <div class="container">
-      <div class="col-3" style="text-align: right;">
+         <div class="col-3" style="text-align: right;">
             <div class="text-right mt-5 mb-2">
                <span class="text-dark" style="word-wrap: break-word;">Bandung, ' . date('D, d M Y') . '</span>
             </div>
@@ -156,7 +157,7 @@ $html .= '
                <span class="text-dark m-1"><u><b>' . $dataKegiatan->nama_pengaju . '</b></u></span>
             </div>
             <div class="text-right mb-5">
-               <span class="text-dark m-1"><u><b>' . $dataKegiatan->nip_pengaju . '</b></u></span>
+               <span class="text-dark m-1"><b>' . $dataKegiatan->nip_pengaju . '</b></span>
             </div>
          </div>
       </div>

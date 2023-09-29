@@ -17,7 +17,7 @@ $no = 1;
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data</a></li>
-                <li class="breadcrumb-item active"><a href="<?= getSegment() ?>">Data Kegiatan</a></li>
+                <li class="breadcrumb-item active"><a href="<?= getSegment() ?>">Kegiatan</a></li>
             </ol>
         </div>
         <!-- row -->

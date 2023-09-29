@@ -23,9 +23,9 @@
                     <li><a href="pengajuan">Pengajuan</a></li>
                 </ul>
             </li>
+            <li class="nav-label first">Report</li>
             <li><a href="has-arrow"><i class="ti-receipt"></i><span class="nav-text">Report</span></a>
                 <ul>
-                    <li><a href="laporan-pengajuan">Laporan Pengajuan</a></li>
                     <li><a href="rekap-barang">Rekap Barang</a></li>
                 </ul>
             </li>
