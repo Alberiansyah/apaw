@@ -7,6 +7,18 @@ $dataKegiatan = tampilDataFirst("SELECT tb_kegiatan.*, tb_pengajuan.*, tb_bagian
 $dataPengajuanDetail = tampilData("SELECT tb_pengajuan.*, tb_pengajuan_detail.*, tb_ruangan.*, tb_barang.* FROM tb_pengajuan INNER JOIN tb_pengajuan_detail ON tb_pengajuan_detail.pengajuan_id = tb_pengajuan.id_pengajuan INNER JOIN tb_ruangan ON tb_ruangan.id_ruangan = tb_pengajuan_detail.ruangan_id INNER JOIN tb_barang ON tb_barang.id_barang = tb_pengajuan_detail.barang_id WHERE tb_pengajuan.id_pengajuan = '$idPengajuan'");
 $no = 1;
 
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+
+$text = $dataKegiatan->nama_pengaju;
+$qrCode = QrCode::create($text)
+   ->setSize(50)
+   ->setMargin(10);
+$writer = new PngWriter;
+$result = $writer->write($qrCode);
+
+$base64Code = $result->getDataUri();
+
 $mpdf = new \Mpdf\Mpdf();
 $html = '<!DOCTYPE html>
 <html lang="en">
@@ -23,6 +35,11 @@ $html = '<!DOCTYPE html>
             margin-top:100px;
          }
 
+         .container-right {
+            position: absolute;
+            left: 50px;
+            margin-top:280px;
+         }
 
          .text-right {
             text-align: right;
@@ -142,6 +159,9 @@ $html .= '
          </table>
          <br>
       <span>Jumlah Item ' . count($dataPengajuanDetail) . '</span>
+      <div class="container-right">
+      <img src="' . $base64Code . '" alt="">
+      </div>
       <div class="container">
          <div class="col-3" style="text-align: right;">
             <div class="text-right mt-5 mb-2">

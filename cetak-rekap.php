@@ -87,7 +87,7 @@ $html = '<!DOCTYPE html>
             </thead>
          </tr>';
 foreach ($dataRekap as $data) {
-    $html .= '
+   $html .= '
                <tr>
                   <td>' . $no++ . '</td>
                   <td>' . $data->nama_barang . '</td>
