@@ -64,11 +64,11 @@ $no = 1;
                                                         <?php if ($data->persetujuan == "") : ?>
                                                             <a href="tambah-pengajuan?id_kegiatan=<?= encrypt($data->id_kegiatan) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button></a>
                                                         <?php elseif ($data->persetujuan === 0) :  ?>
-                                                            <a href="detail-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></button></a>
-                                                            <a href="edit-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary"><i class="fa fa-edit"></i></button></a>
-                                                            <button type="button" class="btn btn-xs btn-danger" id="btnBatalkan" data-id="<?= encrypt($data->id_pengajuan) ?>"><i class="fa fa-close"></i></button>
+                                                            <a href="detail-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-info" style="margin: 3px;"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="edit-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary" style="margin: 3px;"><i class="fa fa-edit"></i></button></a><br>
+                                                            <button type="button" style="margin: 3px;" class="btn btn-xs btn-warning"><i class="fa fa-print"></i></button>
+                                                            <button type="button" class="btn btn-xs btn-danger" style="margin: 3px;" id="btnBatalkan" data-id="<?= encrypt($data->id_pengajuan) ?>"><i class="fa fa-close"></i></button>
                                                         <?php endif; ?>
-                                                        <!-- <button type="button" class="btn btn-danger" id="btnhapusBarang" data-id="<?= $data->id_barang ?>">Batalkan</button> -->
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

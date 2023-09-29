@@ -3,21 +3,16 @@ $isAjaxRequest = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVE
 if ($isAjaxRequest) {
     require __DIR__ . '/functions.php';
 
-    function encrypt($value)
+    function requestId($request)
     {
-        $key = "encryptId1092";
-        $cipher = 'AES-256-CBC';
-        $iv = random_bytes(16);
+        global $pdo;
+        $id = decrypt($_GET['idPengajuan']);
+        $_SESSION['idPengajuan'] = $id;
+        $query = $pdo->prepare($request);
+        $query->execute([$id]);
+        $row = $query->fetchAll(PDO::FETCH_OBJ);
 
-        $encrypted = openssl_encrypt($value, $cipher, $key, 0, $iv);
-
-        if ($encrypted === false) {
-            return false;
-        }
-
-        $mac = hash_hmac('sha256', $encrypted, $key, true);
-
-        return base64_encode($iv . $mac . $encrypted);
+        return $row;
     }
 
     $dataPengajuan = requestId("SELECT * FROM tb_pengajuan WHERE tb_pengajuan.id_pengajuan = ?");
