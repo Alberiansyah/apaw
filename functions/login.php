@@ -26,12 +26,12 @@ if ($checkRow === 1) {
             exit();
         }
     } else {
-        $_SESSION['gagal'] = ['type' => false, 'message' => 'Nama Pengguna/Kata Sandi tidak sah.'];
+        $_SESSION['toastr'] = ['status' => false, 'message' => 'Nama Pengguna/Kata Sandi tidak sah.'];
         header('Location: ../index');
         exit();
     }
 } else {
-    $_SESSION['gagal'] = ['type' => false, 'message' => 'Nama Pengguna/Kata Sandi tidak sah.'];
+    $_SESSION['toastr'] = ['status' => false, 'message' => 'Nama Pengguna/Kata Sandi tidak sah.'];
     header('Location: ../index');
     exit();
 }

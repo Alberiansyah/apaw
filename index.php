@@ -18,7 +18,8 @@ if (isset($_GET['destination'])) {
     <title>Focus - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $hostToRoot ?>wp-content/template/images/favicon.png">
-    <link href="<?= $hostToRoot ?>wp-content/template/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $hostToRoot ?>wp-content/template/vendor/toastr/css/toastr.min.css">
+    <link href="<?= $hostToRoot ?>wp-content/template/css/style.css?v=<?= time() ?>" rel="stylesheet">
 
 </head>
 
@@ -34,11 +35,11 @@ if (isset($_GET['destination'])) {
                                     <h4 class="text-center mb-4">Masuk ke akun anda.</h4>
                                     <form method="POST" action="<?= $hostToRoot ?>functions/login">
                                         <div class="form-group">
-                                            <label><strong>Username</strong></label>
-                                            <input type="text" class="form-control" name="username" placeholder="Masukkan username anda.">
+                                            <label><strong>Nama Pengguna</strong></label>
+                                            <input type="text" class="form-control" name="username" placeholder="Masukkan nama pengguna anda.">
                                         </div>
                                         <div class="form-group">
-                                            <label><strong>Password</strong></label>
+                                            <label><strong>Kata Sandi</strong></label>
                                             <input type="password" class="form-control" name="password" placeholder="Masukkan kata sandi anda.">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
@@ -76,6 +77,14 @@ if (isset($_GET['destination'])) {
     <script src="<?= $hostToRoot ?>wp-content/template/vendor/global/global.min.js"></script>
     <script src="<?= $hostToRoot ?>wp-content/template/js/quixnav-init.js"></script>
     <script src="<?= $hostToRoot ?>wp-content/template/js/custom.min.js"></script>
+    <script src="<?= $hostToRoot ?>wp-content/template/vendor/toastr/js/toastr.min.js"></script>
+    <script src="<?= $hostToRoot ?>wp-content/template/js/plugins-init/toastr-init.js"></script>
+    <?php if (isset($_SESSION['toastr'])) : ?>
+        <script>
+            toastr.error('<?= $_SESSION['toastr']['message'] ?>');
+        </script>
+        <?php unset($_SESSION['toastr']); ?>
+    <?php endif; ?>
 
 </body>
 

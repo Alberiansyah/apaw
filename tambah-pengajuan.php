@@ -34,7 +34,9 @@ $no = 1;
                     <form method="POST" id="postPengajuan" action="">
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+                                </div>
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="nama_kegiatan" class="">Nama Kegiatan</label>
                                         <input type="hidden" class="form-control date" name="kegiatan_id" value="<?= $dataKegiatan->id_kegiatan ?>">
@@ -55,7 +57,7 @@ $no = 1;
                                         <input type="text" class="form-control" name="nip_pengaju" id="nip_pengaju">
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="bagian_id" class="">Nama Bagian</label>
                                         <select id="bagian_id" class="single-select" name="bagian_id">
@@ -76,6 +78,8 @@ $no = 1;
                                         <label for="tanggal" class="">Tanggal</label>
                                         <input type="text" class="form-control date" name="tanggal" id="tanggal">
                                     </div>
+                                </div>
+                                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
