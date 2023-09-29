@@ -1,5 +1,4 @@
 <?php
-
 require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
@@ -66,7 +65,7 @@ $no = 1;
                                                         <?php elseif ($data->persetujuan === 0) :  ?>
                                                             <a href="detail-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-info" style="margin: 3px;"><i class="fa fa-eye"></i></button></a>
                                                             <a href="edit-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>"><button type="button" class="btn btn-xs btn-secondary" style="margin: 3px;"><i class="fa fa-edit"></i></button></a><br>
-                                                            <button type="button" style="margin: 3px;" class="btn btn-xs btn-warning"><i class="fa fa-print"></i></button>
+                                                            <a href="cetak-pengajuan?id_pengajuan=<?= encrypt($data->id_pengajuan) ?>" target="_blank"><button type="button" style="margin: 3px;" class="btn btn-xs btn-warning"><i class="fa fa-print"></i></button></a>
                                                             <button type="button" class="btn btn-xs btn-danger" style="margin: 3px;" id="btnBatalkan" data-id="<?= encrypt($data->id_pengajuan) ?>"><i class="fa fa-close"></i></button>
                                                         <?php endif; ?>
                                                     </td>
