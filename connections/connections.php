@@ -11,9 +11,9 @@ try {
     echo $e->getMessage();
 }
 
-$hostToRoot = 'http://localhost/Joki/DPR/';
-$hostToResources = 'http://localhost/Joki/DPR/wp-resources/';
-$title = 'DPR | Projects';
+$hostToRoot = 'http://localhost/DPRD/';
+$hostToResources = 'http://localhost/DPRD/wp-resources/';
+$title = 'DPRD | Projects';
 $version = 'Beta Build 1.0 (Bug are expected)';
 
 session_start();
