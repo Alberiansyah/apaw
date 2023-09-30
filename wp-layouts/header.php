@@ -25,7 +25,7 @@
         ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="<?= $hostToRoot ?>wp-content/template/images/logo.png" alt="">
+                <img class="logo-abbr" src="<?= $hostToRoot ?>wp-content/assets/img/logo-dprd.png" alt="">
                 <img class="logo-compact" src="<?= $hostToRoot ?>wp-content/template/images/logo-text.png" alt="">
                 <img class="brand-title" src="<?= $hostToRoot ?>wp-content/template/images/logo-text.png" alt="">
             </a>

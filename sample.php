@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/connections/connections.php';
+require __DIR__ . '/functions/functions.php';
 require __DIR__ . '/functions/session-check.php';
 
 ?>

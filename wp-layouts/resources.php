@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= $title ?></title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= $hostToRoot ?>wp-content/assets/img/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= $hostToRoot ?>wp-content/assets/img/logo-dprd.png">
     <link rel="stylesheet" href="<?= $hostToRoot ?>wp-content/template/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= $hostToRoot ?>wp-content/template/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?= $hostToRoot ?>wp-content/template/vendor/toastr/css/toastr.min.css">
